@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<style>button{font-size: 2em;} div{font-size: 4em;}</style>
+<script src="titles.js"></script>
+<script>
+
+var firstWord = [];
+var lastWord = [];
+var stats = {};
+
+function saveFirstLast(words){
+    // add first/last word to first/last array    
+    //--------------------------
+    //        - 2 - 
+    //      YOUR CODE
+    //--------------------------    
+}
+
+function getTitleWords(title){
+    //--------------------------
+    //        - 1 - 
+    //      YOUR CODE
+    //--------------------------    
+}
+
+// loop through titles, 
+titles.forEach(function(title){
+
+    // make words array
+    var words = getTitleWords(title);
+    saveFirstLast(words);
+
+    // used to stop loop
+    var stop = words.length-2;
+
+    // loop through words in title
+    words.some(function(word,index){
+
+        // position of next word
+        var next = index+1;
+
+        // add current/next word to stats obj
+        //--------------------------
+        //        - 3 - 
+        //      YOUR CODE
+        //--------------------------    
+
+        // stop if next to last position
+        return index === stop;
+    });
+});
+
+
+// select random item from array
+var selectRandom = function (array) {
+    //--------------------------
+    //        - 4 - 
+    //      YOUR CODE
+    //--------------------------    
+};
+
+// check if item is in array
+var contains = function(array, item){
+    //--------------------------
+    //        - 5 - 
+    //      YOUR CODE
+    //--------------------------    
+};
+
+// choose a word from next possible words
+function getNextWord(word){
+
+    if (word in stats) {
+        var nextPossibleWords = stats[word];
+        word = selectRandom(nextPossibleWords);
+        return word;
+    }
+    return '';
+}
+
+// generate new title
+function generate(minLength) {
+
+    // select a random first word
+    var word = selectRandom(firstWord);
+    var title = [word];
+
+    // iterate while buildingTitle is true
+    var buildingTitle = true;
+
+    while(buildingTitle){
+        word = getNextWord(word);
+
+        if(word){
+            title.push(word);
+            if(title.length > minLength && contains(lastWord, word))
+                buildingTitle = false;
+        }
+        else{
+            word = selectRandom(firstWord);
+            title = [word];
+        }
+    }
+
+    // new title
+    return title.join(' ');
+}
+
+
+function run(){
+    var title = generate(3 + Math.floor(3 * Math.random()));
+    document.getElementById('title').innerHTML = title;   
+}
+
+</script>
+</html>
+
+<button id="generate" onclick="run()">Generate</button><br>
+<div id="title"></div>
